@@ -3,13 +3,14 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import web.Service.CarService;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
-@RequestMapping("/")
+@RequestMapping("/cars")
 public class CarController {
 
     private final CarService carService;
@@ -25,9 +26,9 @@ public class CarController {
         return "index";
     }
 
-    @GetMapping("/cars/{id}")// ебеатьочсмол тут была ошибка
-    public String show(@PathVariable("id") int id, Model model){
-        model.addAttribute("cars", carService.show(id));
+    @GetMapping("/")
+    public String show(@RequestParam(value = "count", required = false) int count, Model model){
+        model.addAttribute("cars", carService.show(count));
         return "show";
     }
 
