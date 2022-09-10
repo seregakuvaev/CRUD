@@ -20,7 +20,7 @@
         <tr th:each="an, car :${cars}"
             th:style="${car.odd}? 'font-weight: bold;'">
             <td th:text="${an.getId()}"></td>
-            <td th:text="${an.getName()}"></td>
+            <td th:href="@{/cars/{id}(id=${an.getId()})}" th:text="${an.getName()}"></td>
             <td th:text="${an.getYear()}"></td>
             <td th:text="${an.getCount()}"></td>
         </tr>
