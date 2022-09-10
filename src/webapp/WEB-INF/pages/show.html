@@ -6,10 +6,8 @@
     <title>Машина</title>
 </head>
 <body>
-<p th:text="${cars.size()}">VALUE</p>
-<p th:text="${cars[1].getName()}">VALUE</p>
-<p th:text="${cars[2].getName()}">VALUE</p>
-<p th:text="${cars[3].getName()}">VALUE</p>
-<p th:text="${cars[4].getName()}">VALUE</p>
+<div th:each="c, car : ${cars}">
+    <a th:text="  ${c.getName()}  +  ${c.getCount()}  +  ${c.getYear()} "></a>
+</div>
 </body>
 </html>

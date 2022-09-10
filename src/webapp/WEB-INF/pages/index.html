@@ -6,26 +6,9 @@
     <title>Все машины</title>
 </head>
 <body>
-<div>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Имя</th>
-            <th>Год</th>
-            <th>Количество</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="an, car :${cars}"
-            th:style="${car.odd}? 'font-weight: bold;'">
-            <td th:text="${an.getId()}"></td>
-            <td th:text="${an.getName()}"></td>
-            <td th:text="${an.getYear()}"></td>
-            <td th:text="${an.getCount()}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div th:each="c, car : ${cars}">
+    <a th:href="@{/cars/{id}(id=${c.getId()})}"
+       th:utext="${c.getName()}  +  ${c.getCount()}  + ${c.getYear()} ">user</a>
 </div>
 </body>
 </html>

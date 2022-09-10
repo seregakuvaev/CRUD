@@ -25,7 +25,7 @@ public class CarController {
         return "index";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/cars/{id}")// ебеатьочсмол тут была ошибка
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("cars", carService.show(id));
         return "show";
