@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/cars")
+@RequestMapping()
 public class CarController {
 
     private final CarService carService;
@@ -20,14 +20,14 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping()
+    @GetMapping("/cars")
     public String index(Model model) {
         model.addAttribute("cars", carService.index());
         return "index";
     }
 
-    @GetMapping("/")
-    public String show(@RequestParam(value = "count", required = false) int count, Model model){
+    @GetMapping(value = "/cars", params = "count")
+    public String show(@RequestParam(value = "count", required = true) int count, Model model){
         model.addAttribute("cars", carService.show(count));
         return "show";
     }
