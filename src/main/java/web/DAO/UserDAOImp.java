@@ -1,18 +1,28 @@
 package web.DAO;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import web.Model.User;
+import web.Util.HibernateConfig;
 
 import javax.persistence.*;
+import javax.transaction.Transaction;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class UserDAOImp implements UserDAO{
-    @PersistenceContext
-    private EntityManager entityManager;
+//    @PersistenceContext
+//    private EntityManager entityManager;
+    EntityManager entityManager = new HibernateConfig().entityManager();
+
     @Override
     public void addUser(User user) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
         entityManager.persist(user);
+        transaction.commit();
     }
 
     @Override
@@ -23,19 +33,22 @@ public class UserDAOImp implements UserDAO{
     @Override
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
-        Query query = entityManager.createQuery("from users", User.class);
-        query.executeUpdate();
+        Query query = entityManager.createQuery("from User", User.class);
         return query.getResultList();
     }
 
     @Override
     public void updateUser(User user) {
-        entityManager.persist(user);
+        entityManager.merge(user);
     }
 
     @Override
     public void deleteUser(int id) {
-        User user = entityManager.find(User.class, id);
-        entityManager.remove(user);
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        Query query = entityManager.createQuery("delete User where id = :first");
+        query.setParameter("first", id);
+        query.executeUpdate();
+        transaction.commit();
     }
 }

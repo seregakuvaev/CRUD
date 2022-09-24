@@ -27,7 +27,7 @@ public class ServiceDAOImp implements ServiceDAO{
     @Override
     @Transactional
     public void delete(int id) {
-        userDAOImp.getUserById(id);
+        userDAOImp.deleteUser(id);
     }
 
     @Override

@@ -6,8 +6,32 @@
     <title>Юзеры</title>
 </head>
 <body>
-<div th:each="u, User : ${listUsers}">
-    <a th:text="  ${u.getId()} + ' ' + ${u.getFirstname()} + ' ' + ${u.getLastname()} "></a>
+<div th:switch="${listUsers}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id  </th>
+                <th>FirstName   </th>
+                <th>LastName   </th>
+                <th>Edit   </th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${listUsers}">
+                <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getFirstname()}"></td>
+                <td th:text="${user.getLastname()}"></td>
+                <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/remove/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/signup">Add a new user</a></p>
 </div>
 </body>
 </html>
