@@ -40,7 +40,7 @@ public class HibernateConfig{
         em.afterPropertiesSet();
         return em.getObject();
     }
-    @Bean
+    @Bean(name = "query")
     public EntityManager entityManager(){
         return entityManagerFactory().createEntityManager();
     }
@@ -72,6 +72,7 @@ public class HibernateConfig{
 
     Properties additionalProperties() {
         Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto","update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         properties.put( "hibernate.connection.driver_class", "com.mysql.jdbc.Driver" );
 
