@@ -40,7 +40,7 @@ public class HibernateConfig{
         em.afterPropertiesSet();
         return em.getObject();
     }
-    @Bean(name = "query")
+    @Bean
     public EntityManager entityManager(){
         return entityManagerFactory().createEntityManager();
     }
@@ -52,6 +52,11 @@ public class HibernateConfig{
         jpaVendorAdapter.setDatabasePlatform(MySQL8Dialect.class.getName());
         jpaVendorAdapter.setGenerateDdl(true);
         return jpaVendorAdapter;
+    }
+
+    @Bean
+    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+        return new JpaTransactionManager(emf);
     }
 
     @Bean

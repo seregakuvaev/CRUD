@@ -9,28 +9,23 @@ import web.Util.HibernateConfig;
 
 import javax.persistence.*;
 import javax.transaction.Transaction;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
 @Repository
 @Component
 public class UserDAOImp implements UserDAO{
-//    @PersistenceContext
-//    private EntityManager entityManager;
-    EntityManager entityManager = new HibernateConfig().entityManager();
+    @PersistenceContext
+    private EntityManager entityManager;
+//    EntityManager entityManager = new HibernateConfig().entityManager();
 //    @Autowired
 //    @Qualifier("query")
 //    EntityManager entityManager;
-
-
-
-    public UserDAOImp(){}
     @Override
+    @Transactional
     public void addUser(User user) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
         entityManager.persist(user);
-        transaction.commit();
     }
 
     @Override
@@ -40,22 +35,20 @@ public class UserDAOImp implements UserDAO{
 
     @Override
     public List<User> listUsers() {
-        Query query = entityManager.createQuery("from User", User.class);
-        return query.getResultList();
+        return entityManager.createQuery("from User", User.class).getResultList();
     }
 
     @Override
+    @Transactional
     public void updateUser(User user) {
         entityManager.merge(user);
     }
 
     @Override
+    @Transactional
     public void deleteUser(int id) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
         Query query = entityManager.createQuery("delete User where id = :first");
         query.setParameter("first", id);
         query.executeUpdate();
-        transaction.commit();
     }
 }
