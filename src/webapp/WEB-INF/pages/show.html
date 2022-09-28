@@ -30,13 +30,13 @@
                 <td th:text="${user.getId()}"></td>
                 <td th:text="${user.getFirstname()}"></td>
                 <td th:text="${user.getLastname()}"></td>
-                <td><form th:action="@{/edit/{id}(id=${user.id})}" target="_blank"><button>Edit</button></form></td>
-                <td><form th:action="@{/remove/{id}(id=${user.id})}" target="_blank"><button>Delete</button></form></td>
+                <td><form th:action="@{/edit/{id}(id=${user.id})}"><button>Edit</button></form></td>
+                <td><form th:action="@{/remove/{id}(id=${user.id})}"><button>Delete</button></form></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <form action="/signup" target="_blank"><button>Add a new user</button></form>
+    <form action="/signup"><button>Add a new user</button></form>
 </div>
 </body>
 </html>
