@@ -1,27 +1,18 @@
 package web.DAO;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import web.Model.User;
-import web.Util.HibernateConfig;
 
 import javax.persistence.*;
-import javax.transaction.Transaction;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 @Component
 public class UserDAOImp implements UserDAO{
     @PersistenceContext
     private EntityManager entityManager;
-//    EntityManager entityManager = new HibernateConfig().entityManager();
-//    @Autowired
-//    @Qualifier("query")
-//    EntityManager entityManager;
     @Override
     @Transactional
     public void addUser(User user) {
